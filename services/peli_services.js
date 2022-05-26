@@ -4,11 +4,21 @@ const MongoLib = require('../lib/mongo.js');
 
 
 class peliculasService{
-    constructor(){
-        this.collection='peliculas';
-        this.mongoDB= new MongoLib();
+
+    async getPeliculas(){
+        const peliculas = await Promise.resolve(peliculasMock);
+        return peliculas || [];
     }
 
+    async getPelicula(){
+        const pelicula = await Promise.resolve(peliculasMock[0]);
+        return pelicula || [];
+    }
+
+    async createPelicula(){
+        const createPeliculaid = await Promise.resolve(peliculasMock[0].id);
+        return createPeliculaid;
+    }
 
     async getPeliculas({tags}){
         const query= tags && {tags:{$in:tags}}
