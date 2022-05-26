@@ -3,6 +3,8 @@ const colors = require('colors');
 const server = express();
 const {config} =require('./server');
 const peliculasAPI =require('./routes/peliculas.js');
+const { append } = require('express/lib/response');
+
 
 peliculasAPI(server);
 

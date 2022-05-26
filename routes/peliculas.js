@@ -1,13 +1,17 @@
 const express = require('express');
 const {peliculasMock} =require('../utils/mocks/peliculas');
+const peliculasService =require('../services/peli_services.js');
 
 function peliculasAPI(app) {
     const router = express.Router();
+    app.use(express.json());
     app.use('/api/peliculas',router);
-
+    const serv = new peliculasService();
+    
     router.get('/',async function (req,res,next) {
         try {
-            const peliculas =await Promise.resolve(peliculasMock);
+            const query=req.query;
+            const peliculas =await serv.getPeliculas({query})
             res.status(200).json({
                 data:peliculas,
                 message:'Peliculas Listadas'
@@ -16,6 +20,7 @@ function peliculasAPI(app) {
             next(error)
         }
     });
+    
 }
 
 module.exports = peliculasAPI;
